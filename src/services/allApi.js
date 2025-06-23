@@ -1,5 +1,5 @@
 import { commonApi } from "./commonApi"
-import { serverUrl } from "./serverurl"
+import { serverUrl } from "./serverUrl"
 
 //register content-type application-json
 export const registerApi = async (reqBody) => {
