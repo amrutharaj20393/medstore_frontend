@@ -1,0 +1,13 @@
+@import "tailwindcss";
+
+*{
+  font-family: "Crimson Text", serif;
+}
+header{
+  background-image: url("https://png.pngtree.com/thumb_back/fh260/background/20240418/pngtree-pharmacy-counter-over-pharmacy-drugstore-background-image_15660356.jpg");
+  height: 300px;
+  width: 100%;
+  background-position: center;
+  background-repeat: no-repeat;
+  background-size: cover;
+}
