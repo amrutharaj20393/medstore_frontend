@@ -2,13 +2,13 @@ import React, { useEffect, useState } from 'react'
 import Footer from '../../components/Footer'
 import AdminHeader from '../Components/AdminHeader'
 import Adminsidebar from '../Components/Adminsidebar'
-import { GetOrderMedicineApi } from '../../services/allApi'
+import { GetOrderMedicineAdminApi } from '../../services/allApi'
 
 
 function AdminOreders() {
     const [AllOrderDet, setAllOrderDet] = useState([])
     const getOrderDet = async () => {
-        const result = await GetOrderMedicineApi()
+        const result = await GetOrderMedicineAdminApi()
         //console.log(result)
         if (result.status == 200) {
 

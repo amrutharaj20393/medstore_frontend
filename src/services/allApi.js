@@ -50,11 +50,14 @@ export const makePaymentApi = async (reqBody, reqHeader) => {
 }
 
 //oredr api
-export const GetOrderMedicineApi = async () => {
-    return await commonApi('GET', `${serverUrl}/get-ordermedicine`)
+export const GetOrderMedicineApi = async (reqHeader) => {
+    return await commonApi('GET', `${serverUrl}/get-ordermedicine`,'',reqHeader)
 }
 //admin--------------------------------------------------------------------------------------
-
+//allOrderList for admin
+export const GetOrderMedicineAdminApi = async () => {
+    return await commonApi('GET', `${serverUrl}/get-ordermedicineadmin`)
+}
 //add medicine 
 
 export const addMedicineApi = async (reqBody, reqHeader) => {

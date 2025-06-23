@@ -8,9 +8,10 @@ import { GetAllUsersAdminApi } from '../../services/allApi'
 function AdminUsers() {
 
     const [AllUserDetails, setAllUserDetails] = useState([])
-    let userArray=[]
-
     const [token, setToken] = useState("")
+    let userArray = []
+
+
     const getALLUserDetails = async (token) => {
         const reqHeader = {
             "Authorization": `Bearer ${token}`
@@ -20,7 +21,7 @@ function AdminUsers() {
         ///console.log(result)
         if (result.status == 200) {
 
-            userArray=result.data.filter((item) => item.email != 'admin@gmail.com')
+            userArray = result.data.filter((item) => item.email != 'admin@gmail.com')
             setAllUserDetails(userArray)
         }
 
