@@ -53,6 +53,11 @@ export const makePaymentApi = async (reqBody, reqHeader) => {
 export const GetOrderMedicineApi = async (reqHeader) => {
     return await commonApi('GET', `${serverUrl}/get-ordermedicine`,'',reqHeader)
 }
+
+//user profile update api
+export const updateUserProfileApi = async (reqBody, reqHeader) => {
+    return await commonApi('PUT', `${serverUrl}/userprofile-update`, reqBody, reqHeader)
+}
 //admin--------------------------------------------------------------------------------------
 //allOrderList for admin
 export const GetOrderMedicineAdminApi = async () => {

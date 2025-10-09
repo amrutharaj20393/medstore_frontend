@@ -18,6 +18,7 @@ import AdminUsers from './Admin/Pages/AdminUsers'
 import Viewmedicine from './users/pages/Viewmedicine'
 import PaymentSuccess from './users/pages/PaymentSuccess'
 import PaymentFailed from './users/pages/PaymentFailed'
+import Profile from './users/pages/Profile'
 
 function App() {
   const [isloading, setIsLoading] = useState(false)
@@ -44,7 +45,9 @@ function App() {
   <Route path='/admin-orders' element={<AdminOreders/>}></Route>
   <Route path='/admin-users' element={<AdminUsers/>}></Route>
   <Route path='/payment-succcess' element={<PaymentSuccess/>}></Route>
+  <Route path='/profile' element={<Profile/>}></Route>
   <Route path='/payment-error' element={<PaymentFailed/>}></Route>
+  
 
 
   <Route path='/*' element={<Pagenotfound/>}></Route>

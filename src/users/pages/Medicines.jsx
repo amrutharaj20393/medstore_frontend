@@ -7,7 +7,7 @@ import { Link } from 'react-router-dom'
 import { addToCartAMedicineApi, GetAllMedicineApi } from '../../services/allApi'
 import { allMedAddContext, cartMedDetContext, cartStatusContext, searchKeyContext } from '../../Context/Contextshare'
 import { ToastContainer, toast } from 'react-toastify'
-
+import { serverUrl } from '../../services/serverUrl'
 function Medicines() {
     const [status, setStatus] = useState(false)
     const [token, setToken] = useState("")
@@ -16,7 +16,7 @@ function Medicines() {
     const { searchKey, setSearchKey } = useContext(searchKeyContext)
     const { allMedAddStatus } = useContext(allMedAddContext)
     const { setCartMedDt } = useContext(cartMedDetContext)
-    const {setCartstatus}=useContext(cartStatusContext)
+    const { setCartstatus } = useContext(cartStatusContext)
     ///console.log(searchKey)
     const getAllMedicines = async (searchKey, token) => {
 
@@ -44,13 +44,14 @@ function Medicines() {
 
 
     }
+    // console.log(allMedicines)
     const handleAddCart = async (data) => {
-         const reqHeader = {
-        "Authorization": `Bearer ${token}`
+        const reqHeader = {
+            "Authorization": `Bearer ${token}`
         }
 
-        const result = await addToCartAMedicineApi(data,reqHeader)
-       /// console.log(result)
+        const result = await addToCartAMedicineApi(data, reqHeader)
+        /// console.log(result)
         if (result.status == 200) {
             ///console.log(result.data)
             toast.success("Add To Cart Successfully")
@@ -121,8 +122,8 @@ function Medicines() {
                     </div>
                     <div className='md:grid grid-cols-4 w-full mt-5 py-5 '>
                         {allMedicines?.length > 0 ?
-                            allMedicines?.map((item, index) => (<div className='p-3 shadow bg-gray-200 ms-5 md:mt-0 mt-5' key={index}>
-                                <Link to={`/viewmedicine/${item?._id}`}><img src={item?.imageurl} alt="" style={{ width: '100%', height: '300px' }} /></Link>
+                            allMedicines?.map((item, index) => (<div className='p-3 shadow bg-gray-200 ms-5 md:mt-2 mt-5' key={index}>
+                                <Link to={`/viewmedicine/${item?._id}`}><img src={`${serverUrl}/serverupload/${item?.imageurl}`} alt="" style={{ width: '100%', height: '300px' }} /></Link>
                                 <div className='flex  justify-center items-center flex-col ms-3'>
                                     <p className='text-blue-700 text-bold text-center'>{item?.Medname.slice(0, 20)}......</p>
                                     <h3 className='text-gray-500'>{item?.brandname}</h3>

@@ -3,14 +3,14 @@ import Header from '../components/Header'
 import Footer from '../../components/Footer'
 import { Link } from 'react-router-dom'
 import { GetAllMedicineHomeApi } from '../../services/allApi'
-
+import { serverUrl } from '../../services/serverUrl'
 function Home() {
   const [homeMed, setHomeMed] = useState([])
 
   const getHomeMedicines = async () => {
 
     const result = await GetAllMedicineHomeApi()
-   // console.log(result)
+  console.log(result)
     if(result.status==200){
       setHomeMed(result.data)
     }
@@ -28,7 +28,7 @@ function Home() {
 
         <div className='md:grid grid-cols-4 w-full mt-5 rounded-2xl ms-3'>
           <div className='p-3 px-3 shadow rounded-2xl'>
-            <img src="https://www.netmeds.com/images/category/v1/3222/thumb/vitamins_and_supplements_4.png" alt="" style={{ width: '100%', height: '300px' }} />
+            <img src="https://cdn.netmeds.tech/v2/plain-cake-860195/netmed/wrkr/nmz/company/2/applications/65f562c1504a59a67f529ad4/theme/pictures/free/original/theme-image-1711135829698.png" alt="" style={{ width: '100%', height: '300px' }} />
             <div className='flex  justify-center items-center flex-col ms-3'>
 
 
@@ -36,21 +36,21 @@ function Home() {
 
           </div>
           <div className='p-3 px-3 shadow rounded-2xl ms-3'>
-            <img src="https://www.netmeds.com/images/category/prod/thumb/shampoos.png" alt="" style={{ width: '100%', height: '300px' }} />
+            <img src="https://cdn.netmeds.tech/v2/plain-cake-860195/netmed/wrkr/nmz/company/2/applications/65f562c1504a59a67f529ad4/theme/pictures/free/original/theme-image-1711135873220.png" alt="" style={{ width: '100%', height: '300px' }} />
             <div className='flex  justify-center items-center flex-col ms-3'>
 
             </div>
 
           </div>
           <div className='p-3 px-3 shadow rounded-2xl ms-3'>
-            <img src="https://www.netmeds.com/images/category/prod/thumb/orthopaedics.png" alt="" style={{ width: '100%', height: '300px' }} />
+            <img src="https://cdn.netmeds.tech/v2/plain-cake-860195/netmed/wrkr/nmz/company/2/applications/65f562c1504a59a67f529ad4/theme/pictures/free/original/theme-image-1712129450727.png" alt="" style={{ width: '100%', height: '300px' }} />
             <div className='flex  justify-center items-center flex-col ms-3'>
 
             </div>
 
           </div>
           <div className='p-3 px-3 shadow rounded-2xl ms-3'>
-            <img src="https://www.netmeds.com/images/category/prod/thumb/ayurvedic.png" alt="" style={{ width: '100%', height: '300px' }} />
+            <img src="https://cdn.netmeds.tech/v2/plain-cake-860195/netmed/wrkr/nmz/company/2/applications/65f562c1504a59a67f529ad4/theme/pictures/free/original/theme-image-1716811610519.png" alt="" style={{ width: '100%', height: '300px' }} />
             <div className='flex  justify-center items-center flex-col ms-3'>
 
             </div>
@@ -66,7 +66,7 @@ function Home() {
         <div className='md:grid grid-cols-4 w-full mt-5'>
          {homeMed?.length>0?
          homeMed?.map((item,index)=>( <div className='p-3 shadow bg-gray-200 ms-5' key={index}>
-            <img src={item?.imageurl} alt="" style={{ width: '100%', height: '300px' }} />
+            <img src={`${serverUrl}/serverupload/${item?.imageurl}`} alt="" style={{ width: '100%', height: '300px' }} />
             <div className='flex  justify-center items-center flex-col ms-3'>
               <p className='text-blue-700 text-bold text-center'>{item?.Medname}</p>
               <h3 className='text-gray-500'>{item?.brandname}</h3>

@@ -10,6 +10,7 @@ import { cartMedDetContext, cartStatusContext, searchKeyContext } from '../../Co
 import { toast } from 'react-toastify'
 import { ToastContainer } from 'react-toastify/unstyled'
 import { GetCartMedicineApi } from '../../services/allApi'
+import { serverUrl } from '../../services/serverUrl'
 function Header() {
   const [status, setStatus] = useState(false)
   const [token, setToken] = useState("")
@@ -17,6 +18,8 @@ function Header() {
   const { searchKey, setSearchKey } = useContext(searchKeyContext)
   const { cartmedDet, setCartMedDt } = useContext(cartMedDetContext)
   const { cartStatus } = useContext(cartStatusContext)
+  const [existingProfileImage, setExistingProfileImage] = useState("")
+
   const handlenavigate = () => {
     const token = sessionStorage.getItem("token")
     if (searchKey == "") {
@@ -73,6 +76,9 @@ function Header() {
     const token = sessionStorage.getItem("token")
     if (token) {
       getCartMedicineDet(token)
+      const user = JSON.parse(sessionStorage.getItem("existingUser"))
+      //setUserDetails({ username: user.username, password: user.password, cpassword: user.password})
+      setExistingProfileImage(user.profile)
     }
   }, [cartStatus])
   return (
@@ -98,11 +104,38 @@ function Header() {
 
         </div>
         <div className='md:flex justify-end items-center hidden'>
-          {token ? <Link to={'/cart'}><FontAwesomeIcon icon={faCartPlus} style={{ color: "#5b12b5" }} className=' fa-3x  ' /><span className=' bg-cyan-500 text-white rounded me-3 py-1 px-2 fa-1x' style={{ marginRight: "50px" }} >{cartmedDet?.length}</span></Link> : <FontAwesomeIcon icon={faCartPlus} style={{ color: "#5b12b5" }} className=' fa-3x  ' />}
+          {token ? <Link to={'/cart'}><FontAwesomeIcon icon={faCartPlus} style={{ color: "#5b12b5" }} className=' fa-3x me-3  ' /><span className=' bg-cyan-500 text-white rounded me-3 py-1 px-2 fa-1x' style={{ marginRight: "50px" }} >{cartmedDet?.length}</span></Link> : <FontAwesomeIcon icon={faCartPlus} style={{ color: "#5b12b5" }} className=' fa-3x  ' />}
 
-          {!token ? <Link to={'/login'}><button className='border border-cyan-950 rounded px-3 py-2 text-cyan-800 ms-3'><FontAwesomeIcon icon={faUser} style={{ color: "#5b12b5", }} className='fa-1x' />Login</button></Link> :
+          {!token ? <div>
 
-            <Link to={'/'}> <button type="button" onClick={handleLogout} className='px-4 py-2 border border-black rounded hover:bg-cyan-700 hover:text-white'><FontAwesomeIcon icon={faPowerOff} className='md:me-3' />Logout</button></Link>
+            <Link to={'/login'}><button className='border border-cyan-950 rounded px-3 py-2 bg-cyan-800 text-white ms-3'>Login</button></Link>
+          </div>
+            : <div className='md:flex justify-center items-center' > <Link to="/profile">
+              <button className="mt-5 px-4 py-2 rounded bg-blue-800 text-white hover:bg-white hover:text-blue-800 hover:border hover:border-blue-800 transition">
+                Go to Profile
+              </button>
+            </Link>
+
+              <Link to={'/'}>
+                <div className='md:flex justify-center items-center border border-black rounded px-2 ms-3'>
+                  {existingProfileImage === "" ? (
+                    <img
+                      src="https://cdn-icons-png.flaticon.com/512/3686/3686930.png"
+                      alt="profile"
+                      style={{ width: '50px', height: '50px', borderRadius: '50%' }}
+                    />
+                  ) : (
+                    <img
+                      src={`${serverUrl}/serverupload/${existingProfileImage}`}
+                      alt="profile"
+                      style={{ width: '50px', height: '50px', borderRadius: '50%' }}
+                    />
+                  )}
+                  <button type="button" onClick={handleLogout} className='px-4 py-2  hover:bg-cyan-700 hover:text-white'><FontAwesomeIcon icon={faPowerOff} className='md:me-3' />Logout</button>
+                </div>
+              </Link>
+            </div>
+
           }
         </div>
 

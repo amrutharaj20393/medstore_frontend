@@ -1,12 +1,15 @@
-import React, { useEffect, useState } from 'react'
+import React, { useContext, useEffect, useState } from 'react'
 import Footer from '../../components/Footer'
 import AdminHeader from '../Components/AdminHeader'
 import Adminsidebar from '../Components/Adminsidebar'
 import { GetOrderMedicineAdminApi } from '../../services/allApi'
+import { quantityContext } from '../../Context/Contextshare'
 
 
 function AdminOreders() {
     const [AllOrderDet, setAllOrderDet] = useState([])
+    const { quantityStatus } = useContext(quantityContext)
+
     const getOrderDet = async () => {
         const result = await GetOrderMedicineAdminApi()
         //console.log(result)
@@ -15,9 +18,9 @@ function AdminOreders() {
             setAllOrderDet(result.data)
         }
     }
-    useEffect(()=>{
-getOrderDet()
-    },[])
+    useEffect(() => {
+        getOrderDet()
+    }, [quantityStatus])
     return (
         <>
             <AdminHeader />
@@ -34,7 +37,8 @@ getOrderDet()
                                 <th className='border border-gray-900 p-2 bg-blue-500'>Medname</th>
                                 <th className='border border-gray-900 p-2 bg-blue-500'>Brandname</th>
                                 <th className='border border-gray-900 p-2 bg-blue-500'>Price</th>
-                               <th className='border border-gray-900 p-2 bg-blue-500'>UserMailId</th> 
+                                <th className='border border-gray-900 p-2 bg-blue-500'>Quantity</th>
+                                <th className='border border-gray-900 p-2 bg-blue-500'>UserMailId</th>
                                 <th className='border border-gray-900 p-2 bg-blue-500'>Status</th>
 
 
@@ -49,7 +53,8 @@ getOrderDet()
                                         <td className='text-center border border-gray-500 p-2'>{item?.brandname}</td>
 
                                         <td className='text-center border border-gray-500 p-2'>{item?.price}</td>
-                                         <td className='text-center border border-gray-500 p-2'>{item?.brought}</td>
+                                        <td className='text-center border border-gray-500 p-2'>{item?.quantity}</td>
+                                        <td className='text-center border border-gray-500 p-2'>{item?.brought}</td>
                                         <td className='text-center border border-gray-500 p-2'>{item?.status}</td>
 
 

@@ -13,7 +13,7 @@ function AdminProducts() {
     const [modalstatus, setModalStatus] = useState(false)
     const [modaleditstatus, setEditModalStatus] = useState(false)
     const [medDetails, setMedDetails] = useState({
-        Medname: "", price: "", stock: "", imageurl: "", brandname: "", category: "", status: "", description: "", brought: ""
+        Medname: "", price: "", stock: "", uploadedImage: "", brandname: "", category: "", status: "", description: "", brought: ""
 
     })
     const [token, setToken] = useState("")
@@ -23,15 +23,27 @@ function AdminProducts() {
     const [addMedStatus, setAddMedStatus] = useState({})
     const [editMedStatus, setEditMedStatus] = useState({})
     const { setAllMedAddStatus } = useContext(allMedAddContext)
+
+    const [preview, setpreview] = useState("")
     //console.log(medDetails)
     const handleReset = () => {
         setMedDetails({
-            Medname: "", price: "", stock: "", imageurl: "", brandname: "", category: "", description: "", brought: ""
+            Medname: "", price: "", stock: "", uploadedImage: "", brandname: "", category: "", description: "", brought: ""
         })
+        setpreview("")
+    }
+    const handleupload = (e) => {
+        console.log(e.target.files[0])
+        const singlefile = e.target.files[0]
+        setMedDetails({ ...medDetails, uploadedImage: singlefile })
+
+        const url = URL.createObjectURL(e.target.files[0])
+        console.log(url)
+        setpreview(url)
     }
     const handleSubmit = async () => {
-        const { Medname, price, stock, imageurl, brandname, status, category, description, brought } = medDetails
-        if (!Medname || !price || !stock || !imageurl || !brandname || !category || !description) {
+        const { Medname, price, stock, uploadedImage, brandname, status, category, description, brought } = medDetails
+        if (!Medname || !price || !stock || !brandname || !category || !description) {
             toast.info('please fill details')
         }
         else {
@@ -39,10 +51,14 @@ function AdminProducts() {
             const reqHeader = {
                 "Authorization": `Bearer ${token}`
             }
-
-
-            const result = await addMedicineApi({ Medname, price, stock, imageurl, brandname, status, category, description, brought }, reqHeader)
-           /// console.log(result)
+            console.log(uploadedImage)
+            const reqBody = new FormData()//it is a class
+            for (let key in medDetails) {
+                reqBody.append(key, medDetails[key])
+            }
+            console.log(reqBody)
+            const result = await addMedicineApi(reqBody, reqHeader)
+            console.log(result)
             if (result.status == 200) {
                 toast.success("Medicine added successfully")
                 setAddMedStatus(result.data)
@@ -78,24 +94,25 @@ function AdminProducts() {
     //
     // console.log(editMedDetails)
     const handleSubmitEdit = async (token) => {
-        const { _id, Medname, price, stock, imageurl, brandname, category, description, brought } = editMedDetails
-        console.log(_id, Medname, price, stock, imageurl, brandname, category, description, brought)
+        const { _id, Medname, price, stock,  brandname, category, description, brought } = editMedDetails
+        console.log(_id, Medname, price, stock,  brandname, category, description, brought)
 
-        const result = await editAMedicineAdminApi({ _id, Medname, price, stock, imageurl, brandname, category, description, brought })
+        const result = await editAMedicineAdminApi({ _id, Medname, price, stock,  brandname, category, description, brought })
         ///console.log(result)
-         if(result.status==200){
+        if (result.status == 200) {
             toast.success("Edited successfully")
-             setEditMedStatus(result.data)
+            setEditMedStatus(result.data)
+
         }
-       
-       
+
+
     }
 
     const deleteMedicine = async (id) => {
         const result = await deleteAMedicineAdminApi(id)
         ///console.log(result)
         if (result.status == 200) {
-             toast.success("Deleted successfully")
+            toast.success("Deleted successfully")
             setDeleteStatus(result)
 
         }
@@ -110,7 +127,7 @@ function AdminProducts() {
 
         }
 
-    }, [deleteStatus, addMedStatus,editMedStatus])
+    }, [deleteStatus, addMedStatus, editMedStatus])
     return (
         <>
             <AdminHeader />
@@ -198,9 +215,7 @@ function AdminProducts() {
                                 <div className="mb-3">
                                     <input value={medDetails.stock} onChange={(e) => setMedDetails({ ...medDetails, stock: e.target.value })} type="text" placeholder='Stock' className='p-2 border border-gray-400 rounded placeholder-gray-500  w-full' />
                                 </div>
-                                <div className="mb-3">
-                                    <input value={medDetails.imageurl} onChange={(e) => setMedDetails({ ...medDetails, imageurl: e.target.value })} type="text" placeholder='Imageurl' className='p-2 border border-gray-400 rounded placeholder-gray-500  w-full' />
-                                </div>
+
                                 <div className="mb-3">
                                     <input value={medDetails.brandname} onChange={(e) => setMedDetails({ ...medDetails, brandname: e.target.value })} type="text" placeholder='Brand name' className='p-2 border border-gray-400 rounded placeholder-gray-500  w-full' />
                                 </div>
@@ -210,9 +225,17 @@ function AdminProducts() {
                                 <div className="mb-3">
                                     <input value={medDetails.description} onChange={(e) => setMedDetails({ ...medDetails, description: e.target.value })} type="text" placeholder='Description' className='p-2 border border-gray-400 rounded placeholder-gray-500  w-full' />
                                 </div>
+                                <div className="mb-3 flex justify-center items-center w-full mt-5">
+                                    {!preview ? <label htmlFor='imagefile'>
+                                        <input id="imagefile" type='file' style={{ display: 'none' }} onChange={(e) => handleupload(e)} />
+                                        <img src="https://cdn-icons-png.flaticon.com/512/3616/3616929.png" alt="" style={{ width: '150px', height: '150px' }} />
+                                    </label> :
+                                        <img src={preview} alt="" style={{ width: '150px', height: '150px' }} />
+                                    }
+                                </div>
                             </div>
 
-                            <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
+                            <div className="bg-gray-50 px-4 py-2 sm:flex sm:flex-row-reverse sm:px-6">
                                 <button onClick={handleSubmit} type="button" className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-500 sm:ml-3 sm:w-auto">Add Medicine</button>
                                 <button onClick={handleReset} type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto">Reset</button>
                             </div>
@@ -246,13 +269,13 @@ function AdminProducts() {
                                 <div className="mb-3">
                                     <input value={editMedDetails.stock} onChange={(e) => setEditMedDetails({ ...editMedDetails, stock: e.target.value })} type="text" placeholder='Stock' className='p-2 border border-gray-400 rounded placeholder-gray-500  w-full' />
                                 </div>
-                                <div className="mb-3">
+                                {/* <div className="mb-3">
                                     <input value={editMedDetails.imageurl} onChange={(e) => setEditMedDetails({ ...editMedDetails, imageurl: e.target.value })} type="text" placeholder='Imageurl' className='p-2 border border-gray-400 rounded placeholder-gray-500  w-full' />
-                                </div>
+                                </div> */}
                                 <div className="mb-3">
                                     <input value={editMedDetails.brandname} onChange={(e) => setEditMedDetails({ ...editMedDetails, brandname: e.target.value })} type="text" placeholder='Brand name' className='p-2 border border-gray-400 rounded placeholder-gray-500  w-full' />
                                 </div>
-                            
+
                                 <div className="mb-3">
                                     <input value={editMedDetails.category} onChange={(e) => setEditMedDetails({ ...editMedDetails, category: e.target.value })} type="text" placeholder='category' className='p-2 border border-gray-400 rounded placeholder-gray-500  w-full' />
                                 </div>
@@ -263,7 +286,7 @@ function AdminProducts() {
 
                             <div className="bg-gray-50 px-4 py-3 sm:flex sm:flex-row-reverse sm:px-6">
                                 <button onClick={handleSubmitEdit} type="button" className="inline-flex w-full justify-center rounded-md bg-green-600 px-3 py-2 text-sm font-semibold text-white shadow-xs hover:bg-green-500 sm:ml-3 sm:w-auto">Edit Medicine</button>
-                                <button type="button" className="mt-3 inline-flex w-full justify-center rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto">Reset</button>
+                                <button type="button" onClick={() => setEditModalStatus(false)} className="mt-3 inline-flex w-full justify-center rounded-md bg-orange-600 px-3 py-2 text-sm font-semibold text-gray-900 shadow-xs ring-1 ring-gray-300 ring-inset hover:bg-gray-50 sm:mt-0 sm:w-auto">Cancel</button>
                             </div>
                         </div>
                     </div>

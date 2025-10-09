@@ -10,7 +10,7 @@ import { faEye } from '@fortawesome/free-solid-svg-icons';
 import { faEyeSlash } from '@fortawesome/free-solid-svg-icons';
 
 function Auth({ register }) {
-   const [showpassword, setShowpassword] = useState(false)
+  const [showpassword, setShowpassword] = useState(false)
   const [userdetails, setUserDetails] = useState({
     username: "",
     email: "",
@@ -25,7 +25,7 @@ function Auth({ register }) {
       toast.info("please fill all details")
     }
     else {
-      
+
       const result = await registerApi({ username, email, password })
       ///console.log(result)
       if (result.status == 200) {
@@ -64,7 +64,7 @@ function Auth({ register }) {
     }
     else {
       const result = await loginApi({ email, password })
-      ///console.log(result)
+      console.log(result)
       if (result.status == 200) {
         toast.success("User Login Successfully")
         sessionStorage.setItem("existingUser", JSON.stringify(result.data.existinguser))
@@ -108,7 +108,7 @@ function Auth({ register }) {
 
   const handelGoogleLogin = async (credentialResponse) => {
     const details = jwtDecode(credentialResponse.credential)
-   // console.log(details)
+    // console.log(details)
     const result = await GoogleloginApi({ username: details.name, email: details.email, password: 'googlepassword' })
     //console.log(result)
     if (result.status == 200) {
@@ -158,11 +158,11 @@ function Auth({ register }) {
                 </div>
 
                 <div className='mb-2 w-full flex bg-white rounded '>
-                 {/* { <input value={userdetails.password} 
+                  {/* { <input value={userdetails.password} 
                   onChange={(e) => setUserDetails({ ...userdetails, password: e.target.value })} type="text" placeholder='Password' className='p-2 rounded placeholder-gray-600 bg-white w-full' />} */}
-                   <input  value={userdetails.password} type={showpassword ? "text" : "password"} placeholder='Password' className='p-2 rounded placeholder-gray-600 bg-white w-full' onChange={(e) => setUserDetails({ ...userdetails, password: e.target.value })} />
+                  <input value={userdetails.password} type={showpassword ? "text" : "password"} placeholder='Password' className='p-2 rounded placeholder-gray-600 bg-white w-full' onChange={(e) => setUserDetails({ ...userdetails, password: e.target.value })} />
 
-                                {!showpassword ? <FontAwesomeIcon icon={faEyeSlash} onClick={() => setShowpassword(true)} style={{ marginTop: '11px', marginLeft: '30px' }} className='me-2'  /> : <FontAwesomeIcon icon={faEye} onClick={() => setShowpassword(false)} style={{ marginTop: '11px', marginLeft: '30px' }} className='me-2' />}
+                  {!showpassword ? <FontAwesomeIcon icon={faEyeSlash} onClick={() => setShowpassword(true)} style={{ marginTop: '11px', marginLeft: '30px' }} className='me-2' /> : <FontAwesomeIcon icon={faEye} onClick={() => setShowpassword(false)} style={{ marginTop: '11px', marginLeft: '30px' }} className='me-2' />}
                 </div>
 
                 <div className='mb-5 w-full flex justify-between '>
@@ -180,15 +180,15 @@ function Auth({ register }) {
                   </div>}
                 <p className='text-white'>----------------or-------------</p>
 
-                {!register && <div className='mb-2 mt-3 w-full'>
+                {!register && <div className='md:flex mb-2 mt-3 w-full justify-center items-center'>
                   { /* <button className='bg-white text-black w-full p-3 rounded'>Sign In with Google</button>*/}
-                  <GoogleLogin width={'800px'}
+                  <GoogleLogin
                     onSuccess={credentialResponse => {
-                      console.log(credentialResponse);
+                      console.log(credentialResponse)
                       handelGoogleLogin(credentialResponse)
                     }}
                     onError={() => {
-                      console.log('Login Failed');
+                      console.log('Login Failed')
                     }}
                   />;
                 </div>}
@@ -199,8 +199,11 @@ function Auth({ register }) {
               </form>
             </div>
           </div>
-          <div className='md:px-10 px-2 '>
-            <img src="https://www.netmeds.com/images/cms/wysiwyg/cms/1680000865_New_Dest_deal.png" alt="" className='w-full' />
+          <div className='md:flex justify-center rounded items-center  p-2 w-full'>
+            <div className='w-full'>
+              <img src="https://cdn.dribbble.com/userupload/4839030/file/original-7ed0497dd7570a7c8488ef649e46a1ae.png?resize=1504x1128&vertical=center" alt="" />
+            </div>
+
           </div>
         </div>
       </section>
