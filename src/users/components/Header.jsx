@@ -122,13 +122,13 @@ function Header() {
                     <img
                       src="https://cdn-icons-png.flaticon.com/512/3686/3686930.png"
                       alt="profile"
-                      style={{ width: '50px', height: '50px', borderRadius: '50%' }}
+                      style={{ width: '50px', height: '40px', borderRadius: '50%' }}
                     />
                   ) : (
                     <img
                       src={`${serverUrl}/serverupload/${existingProfileImage}`}
                       alt="profile"
-                      style={{ width: '50px', height: '50px', borderRadius: '50%' }}
+                      style={{ width: '50px', height: '40px', borderRadius: '50%' }}
                     />
                   )}
                   <button type="button" onClick={handleLogout} className='px-4 py-2  hover:bg-cyan-700 hover:text-white'><FontAwesomeIcon icon={faPowerOff} className='md:me-3' />Logout</button>

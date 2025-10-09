@@ -4,6 +4,7 @@ import Footer from '../../components/Footer'
 import { Link } from 'react-router-dom'
 import { GetOrderMedicineApi } from '../../services/allApi'
 
+import { serverUrl } from '../../services/serverUrl'
 function Orderhistory() {
     const [AllOrderDet, setAllOrderDet] = useState([])
     const [token, setToken] = useState("")
@@ -58,7 +59,7 @@ function Orderhistory() {
                                             <td className='text-center border border-gray-500 p-2'>{index + 1}</td>
                                             <td className='text-center border border-gray-500 p-2'>{item?.Medname}</td>
 
-                                            <td className='text-center border border-gray-500 p-2 flex justify-center'><img src={item?.imageurl} alt="" style={{ width: '150px', height: '100px' }} /></td>
+                                            <td className='text-center border border-gray-500 p-2 flex justify-center'><img src={`${serverUrl}/serverupload/${item?.imageurl}`}alt="" style={{ width: '150px', height: '100px' }} /></td>
                                             <td className='text-center border border-gray-500 p-2'>{item?.price}</td>
 
                                             <td className='text-center border border-gray-500 p-2'>{item?.category}</td>
