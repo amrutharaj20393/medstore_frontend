@@ -28,7 +28,7 @@ function Home() {
 
         <div className='md:grid grid-cols-4 w-full mt-5 rounded-2xl ms-3'>
           <div className='p-3 px-3 shadow rounded-2xl'>
-            <img src="https://cdn.netmeds.tech/v2/plain-cake-860195/netmed/wrkr/nmz/company/2/applications/65f562c1504a59a67f529ad4/theme/pictures/free/original/theme-image-1711135829698.png" alt="" style={{ width: '100%', height: '300px' }} />
+            <img src="https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcT6wJRRMgLwTCyUd5edx2k6eUZNrNMKgvdoSQ&s" alt="" style={{ width: '100%', height: '300px' }} />
             <div className='flex  justify-center items-center flex-col ms-3'>
 
 
@@ -36,21 +36,21 @@ function Home() {
 
           </div>
           <div className='p-3 px-3 shadow rounded-2xl ms-3'>
-            <img src="https://cdn.netmeds.tech/v2/plain-cake-860195/netmed/wrkr/nmz/company/2/applications/65f562c1504a59a67f529ad4/theme/pictures/free/original/theme-image-1711135873220.png" alt="" style={{ width: '100%', height: '300px' }} />
+            <img src="https://www.shutterstock.com/image-vector/medical-device-icon-set-pulse-260nw-1705138525.jpg" alt="" style={{ width: '100%', height: '300px' }} />
             <div className='flex  justify-center items-center flex-col ms-3'>
 
             </div>
 
           </div>
           <div className='p-3 px-3 shadow rounded-2xl ms-3'>
-            <img src="https://cdn.netmeds.tech/v2/plain-cake-860195/netmed/wrkr/nmz/company/2/applications/65f562c1504a59a67f529ad4/theme/pictures/free/original/theme-image-1712129450727.png" alt="" style={{ width: '100%', height: '300px' }} />
+            <img src="https://png.pngtree.com/thumb_back/fh260/background/20210912/pngtree-vintage-wooden-board-table-personal-care-products-image_864129.jpg" alt="" style={{ width: '100%', height: '300px' }} />
             <div className='flex  justify-center items-center flex-col ms-3'>
 
             </div>
 
           </div>
           <div className='p-3 px-3 shadow rounded-2xl ms-3'>
-            <img src="https://cdn.netmeds.tech/v2/plain-cake-860195/netmed/wrkr/nmz/company/2/applications/65f562c1504a59a67f529ad4/theme/pictures/free/original/theme-image-1716811610519.png" alt="" style={{ width: '100%', height: '300px' }} />
+            <img src="https://www.shutterstock.com/image-photo/couple-running-together-on-sunny-260nw-2547631819.jpg" alt="" style={{ width: '100%', height: '300px' }} />
             <div className='flex  justify-center items-center flex-col ms-3'>
 
             </div>
