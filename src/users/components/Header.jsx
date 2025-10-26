@@ -111,13 +111,13 @@ function Header() {
             <Link to={'/login'}><button className='border border-cyan-950 rounded px-3 py-2 bg-cyan-800 text-white ms-3'>Login</button></Link>
           </div>
             : <div className='md:flex justify-center items-center' > <Link to="/profile">
-              <button className="mt-5 px-4 py-2 rounded bg-blue-800 text-white hover:bg-white hover:text-blue-800 hover:border hover:border-blue-800 transition">
+              <button className="mt-1 px-4 py-2 rounded bg-blue-800 text-white hover:bg-white hover:text-blue-800 hover:border hover:border-blue-800 transition">
                 Go to Profile
               </button>
             </Link>
 
               <Link to={'/'}>
-                <div className='md:flex justify-center items-center border border-black rounded px-2 ms-3'>
+                <div className='md:flex justify-center items-center  px-2 ms-3'>
                   {existingProfileImage === "" ? (
                     <img
                       src="https://cdn-icons-png.flaticon.com/512/3686/3686930.png"
@@ -131,7 +131,7 @@ function Header() {
                       style={{ width: '50px', height: '40px', borderRadius: '50%' }}
                     />
                   )}
-                  <button type="button" onClick={handleLogout} className='px-4 py-2  hover:bg-cyan-700 hover:text-white'><FontAwesomeIcon icon={faPowerOff} className='md:me-3' />Logout</button>
+                  <button type="button" onClick={handleLogout} className='px-4 py-2 border ms-2 border-black rounded hover:bg-cyan-700 hover:text-white'><FontAwesomeIcon icon={faPowerOff} className='md:me-3' />Logout</button>
                 </div>
               </Link>
             </div>
