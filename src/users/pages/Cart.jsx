@@ -47,7 +47,7 @@ function Cart() {
   const makePayment = async (data) => {
 
     ///console.log(data)
-    const stripe = await loadStripe('pk_test_51RSxz22LjIoQ1c2HuAKfvCfsyoYqO3AfMShsZne9aKylEaDoB8iDVIWnTBF6zRGSOcCPM3zPErr3uxkOGUpIK9XB00iZRhl8e5');
+   // const stripe = await loadStripe('pk_test_51RSxz22LjIoQ1c2HuAKfvCfsyoYqO3AfMShsZne9aKylEaDoB8iDVIWnTBF6zRGSOcCPM3zPErr3uxkOGUpIK9XB00iZRhl8e5');
 
     const reqBody = {
 
@@ -62,11 +62,13 @@ function Cart() {
     //console.log(result)
 
     setQuantityStatus(result.data)
-    const sessionId = result.data.sessionId
+    // const sessionId = result.data.sessionId
 
-    const response = stripe.redirectToCheckout({
-      sessionId: sessionId
-    })
+    // const response = stripe.redirectToCheckout({
+    //   sessionId: sessionId
+    // })
+
+     window.location.href = result.data.url;
     if (response.error) {
       toast.error('something went wrong')
     }
@@ -131,7 +133,7 @@ function Cart() {
                       />
                     </div>
                     <div>
-                      <button type='button' onClick={() => makePayment(item)} className='bg-blue-800 text-white px-5 p-2 mt-3 rounded  hover:bg-white hover:border border-blue-500 hover:text-blue-600 w-full '>Order</button>
+                      <button type='button' onClick={() => makePayment(item)} className='bg-emerald-800 text-white px-5 p-2 mt-3 rounded  hover:bg-white hover:border border-blue-500 hover:text-blue-600 w-full '>Order</button>
                     </div>
 
                   </div>
